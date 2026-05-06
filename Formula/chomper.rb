@@ -1,16 +1,23 @@
 class Chomper < Formula
   desc "Trim trailing newline and carriage return bytes from a file in-place"
   homepage "https://github.com/jamylak/chomper"
-  url "https://github.com/jamylak/chomper/archive/895b20d8ec95400e8063b59968f9b348cd2603a7.tar.gz"
   version "0.1.0"
-  sha256 "26f5c77274ed70941f209a2a91d0b61b2775f88e0d79b682117b259c9c1382e6"
   license :cannot_represent
-  head "https://github.com/jamylak/chomper.git", branch: "main"
 
-  depends_on "rust" => :build
+  depends_on :macos
+
+  on_macos do
+    if Hardware::CPU.arm?
+      url "https://github.com/jamylak/chomper/releases/download/v0.1.0/chomper-v0.1.0-aarch64-apple-darwin.tar.gz"
+      sha256 "d76cf26466755bffa41b6f5e8741e8b91fab837b8f3d05c95888e6d6de7c80bf"
+    else
+      url "https://github.com/jamylak/chomper/releases/download/v0.1.0/chomper-v0.1.0-x86_64-apple-darwin.tar.gz"
+      sha256 "0cb3660cce31ba798370f473390045c277247784d2fa2d217725fe9b46a54a01"
+    end
+  end
 
   def install
-    system "cargo", "install", *std_cargo_args
+    bin.install "chomper"
   end
 
   test do
