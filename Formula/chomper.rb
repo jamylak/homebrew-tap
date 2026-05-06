@@ -1,7 +1,6 @@
 class Chomper < Formula
   desc "Trim trailing newline and carriage return bytes from a file in-place"
   homepage "https://github.com/jamylak/chomper"
-  version "0.1.0"
   license :cannot_represent
 
   depends_on :macos
